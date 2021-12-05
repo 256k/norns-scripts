@@ -8,7 +8,7 @@
 
 
 function init() 
-  myChar = 65
+  myChar = 33
   clock.run(function()  -- redraw the screen and grid at 15fps
     while true do
       clock.sleep(1/5)
@@ -24,7 +24,7 @@ function key(n,z)
     screen.update()
   end
   if n==3 and z==1 then
-    myChar = math.random(1, 127)
+    myChar = math.random(33, 126)
     
   end
   
