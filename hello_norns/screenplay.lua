@@ -26,8 +26,6 @@ function key(n,z)
   end
   if n==3 and z==1 then
     myChar = math.random(33, 126)
-    -- charLight = math.random(1, 15)
-    -- print(charLight)
   end
   
 end
