@@ -1,18 +1,19 @@
--- --------------------------------
--- "Screenplay"                   
--- : experimenting with animation 
--- - by fr0nk                     
+--          "Screenplay"                   
+-- experimenting with animation 
+--            by fr0nk                 
 -- --------------------------------
 -- K2: clear screen
 -- K3: random pick a character
-
+-- E2: control speed
+-- E3: control brightness
 
 function init() 
   myChar = 47
   charLight = 1
+  framerate = 15
   clock.run(function()  -- redraw the screen and grid at 15fps
     while true do
-      clock.sleep(1/15)
+      clock.sleep(1/framerate)
       redraw()
       -- gridredraw() -- for the grid
     end
@@ -34,18 +35,27 @@ end
 
 function enc(n,d)
   if n==3 then
-    if charLight > 0 and charLight < 16 then
     charLight = charLight + d
-    end
+    if charLight < 0 then 
+      charLight = 0 
+      end
+    if charLight > 15 then 
+      charLight = 15 
+      end
+  end
+  if n==2 then
+    framerate = framerate + d
+    if framerate < 1 then framerate = 1 end
+    if framerate > 130 then framerate = 130 end
+  end
 end
-end
+
 
 function redraw()
     screen.level(charLight)
     screen.move(math.random(0, 128), math.random(0, 64))
     screen.text(string.char(myChar))
     screen.update()
-
 end
 
 
