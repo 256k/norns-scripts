@@ -11,11 +11,10 @@ function init()
   myChar = 47
   charLight = 1
   framerate = 15
-  clock.run(function()  -- redraw the screen and grid at 15fps
+  clock.run(function()  -- redraw the screen 
     while true do
       clock.sleep(1/framerate)
       redraw()
-      -- gridredraw() -- for the grid
     end
   end)
 end
