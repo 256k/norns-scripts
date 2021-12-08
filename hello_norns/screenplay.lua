@@ -13,7 +13,7 @@ function init()
   myChar = 47
   charLight = 5
   framerate = 15
-  clock.run(function()  -- redraw the screen and grid at 15fps
+  clock.run(function()  -- redraw the screen 
     while true do
       clock.sleep(1/framerate)
       print(params:get("screenToggle"))
