@@ -8,46 +8,43 @@
 -- E3: control brightness
 
 function init() 
+  params:add_number("screenToggle","screenToggle",0,1,1)
+  g = grid.connect()
   myChar = 47
-  charLight = 1
+  charLight = 5
   framerate = 15
   clock.run(function()  -- redraw the screen and grid at 15fps
     while true do
       clock.sleep(1/framerate)
-      redraw()
-      -- gridredraw() -- for the grid
+      print(params:get("screenToggle"))
+      if params:get("screenToggle") > 0 then redraw() end
+      gridredraw() -- for the grid
     end
   end)
 end
 
 function key(n,z)
+  if n==1 and z==1 then
+    local index = math.random(1, 10000);
+    _norns.screen_export_png("/home/we/dust/screenshots/" .. index .. ".png")
+    print("screenshot taken")
+  end
+  
   if n==2 and z==1 then
     screen.clear()  
     screen.update()
+    g:all(0)
+
   end
   if n==3 and z==1 then
     myChar = math.random(33, 126)
-    -- charLight = math.random(1, 15)
-    -- print(charLight)
   end
   
 end
 
 function enc(n,d)
-  if n==3 then
-    charLight = charLight + d
-    if charLight < 0 then 
-      charLight = 0 
-      end
-    if charLight > 15 then 
-      charLight = 15 
-      end
-  end
-  if n==2 then
-    framerate = framerate + d
-    if framerate < 1 then framerate = 1 end
-    if framerate > 130 then framerate = 130 end
-  end
+  if n==3 then charLight = util.clamp(charLight + d, 0, 15) end
+  if n==2 then framerate = util.clamp(framerate + d, 1, 130) end
 end
 
 
@@ -59,3 +56,7 @@ function redraw()
 end
 
 
+function gridredraw()
+  g:led(math.random(1,16), math.random(1,8), math.random(0,charLight))
+  g:refresh()
+end
